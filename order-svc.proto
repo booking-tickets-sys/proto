@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package order;
+
+option go_package = "order-svc/pb";
+
+service OrderService {
+  rpc PurchaseTicket(PurchaseRequest) returns (PurchaseResponse);
+}
+
+message PurchaseRequest {
+  string eventId = 1;
+  string userId = 2;
+}
+
+message PurchaseResponse {
+  enum Status {
+    QUEUED = 0;
+    SOLD_OUT = 1;
+    ALREADY_IN_QUEUE = 2;
+    ERROR = 3;
+    QUEUE_FULL = 4;
+  }
+  Status status = 1;
+}
